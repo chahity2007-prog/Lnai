@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ResuLink — LinkedIn to Resume &amp; CV</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%276%27 fill=%27%230a66c2%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-family=%27Georgia%27 font-size=%2718%27 font-weight=%27bold%27 fill=%27white%27 text-anchor=%27middle%27%3Ein%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="landing">
+  <header class="nav">
+    <div class="brand">
+      <span class="logo">in</span>
+      <strong>ResuLink</strong>
+    </div>
+    <a class="btn btn-ghost" href="#how">How it works</a>
+  </header>
+
+  <main class="hero">
+    <div class="hero-text">
+      <h1>Turn your <span class="hl">LinkedIn</span> into a polished résumé &amp; CV — instantly.</h1>
+      <p class="lead">
+        Connect your LinkedIn account, and we'll pull your details and generate
+        a professionally formatted résumé and a full academic CV. Edit anything,
+        pick a template, and export to PDF.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-lg" href="/auth/linkedin" id="connectBtn">
+          <span class="li-mark">in</span> Connect LinkedIn
+        </a>
+        <span class="demo-note" id="demoNote"></span>
+      </div>
+      <ul class="checks">
+        <li>✓ Résumé &amp; CV from one profile</li>
+        <li>✓ Multiple templates</li>
+        <li>✓ One-click PDF export</li>
+        <li>✓ Your data stays in your session</li>
+      </ul>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="doc doc-a"></div>
+      <div class="doc doc-b"></div>
+    </div>
+  </main>
+
+  <section id="how" class="how">
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Connect LinkedIn</h3><p>Securely sign in with LinkedIn. We import your name, contact and photo.</p></div>
+      <div class="step"><div class="num">2</div><h3>Complete your profile</h3><p>Add or edit experience, education and skills in a clean editor.</p></div>
+      <div class="step"><div class="num">3</div><h3>Generate &amp; export</h3><p>Get a curated résumé and CV, choose a template, and download PDF.</p></div>
+    </div>
+    <div class="disclaimer">
+      <strong>A note on LinkedIn data:</strong> LinkedIn's public API only shares
+      your basic profile (name, email, photo). Rich details like work history
+      and education aren't available to third-party apps, so you complete those
+      in the editor — optionally importing them from your
+      <a href="https://www.linkedin.com/mypreferences/d/download-my-data" target="_blank" rel="noopener">LinkedIn data export</a>.
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>ResuLink · Built as a demo of LinkedIn OAuth + résumé/CV generation.</p>
+  </footer>
+
+  <script>
+    // Show demo hint and, if already signed in, jump to the editor.
+    fetch('/api/status').then((r) => r.json()).then((s) => {
+      if (s.authenticated) location.href = '/editor.html';
+      const note = document.getElementById('demoNote');
+      if (s.demoMode && !s.linkedinConfigured) {
+        note.textContent = 'Demo mode: loads a sample profile — no LinkedIn account needed.';
+      }
+    }).catch(() => {});
+  </script>
+</body>
+</html>
