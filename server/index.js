@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import multer from 'multer';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -14,6 +15,12 @@ import {
   userInfoToProfile,
 } from './linkedin.js';
 import { demoProfile } from './demo-profile.js';
+import { parseLinkedInExport, summarize } from './linkedin-export.js';
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 30 * 1024 * 1024 }, // 30 MB
+});
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PUBLIC_DIR = path.join(__dirname, '..', 'public');
@@ -112,6 +119,41 @@ app.put('/api/profile', (req, res) => {
   if (!req.session.profile) return res.status(401).json({ error: 'Not authenticated' });
   req.session.profile = { ...req.session.profile, ...req.body };
   res.json(req.session.profile);
+});
+
+// --- LinkedIn Data Export ZIP import --------------------------------------
+// Users request a "Data Export" from LinkedIn:
+//   Settings → Data Privacy → Get a copy of your data → Request archive.
+// LinkedIn emails a ZIP of CSVs containing the FULL profile (positions,
+// education, skills, languages, certifications). This endpoint parses that
+// ZIP and merges the result into the session profile.
+app.post('/api/import-linkedin-export', upload.single('archive'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+  try {
+    const { profile: imported, filesSeen } = parseLinkedInExport(req.file.buffer);
+
+    // Start from whatever is already in the session (or an empty profile),
+    // and overlay non-empty imported fields on top.
+    const base = req.session.profile || emptyProfile();
+    const merged = { ...base };
+    for (const [k, v] of Object.entries(imported)) {
+      if (Array.isArray(v)) {
+        if (v.length) merged[k] = v;
+      } else if (typeof v === 'string') {
+        if (v.trim()) merged[k] = v;
+      }
+    }
+    req.session.profile = merged;
+    res.json({
+      ok: true,
+      summary: summarize(imported),
+      filesSeen,
+      profile: merged,
+    });
+  } catch (err) {
+    console.error('LinkedIn export import failed:', err);
+    res.status(400).json({ error: 'Could not parse ZIP: ' + err.message });
+  }
 });
 
 // --- Logout ---------------------------------------------------------------

@@ -32,16 +32,23 @@
         pick a template, and export to PDF.
       </p>
       <div class="cta-row">
-        <a class="btn btn-primary btn-lg" href="/auth/linkedin" id="connectBtn">
-          <span class="li-mark">in</span> Connect LinkedIn
+        <label class="btn btn-primary btn-lg" id="importCta">
+          <input type="file" id="importFile" accept=".zip,application/zip,application/x-zip-compressed" hidden />
+          <span class="li-mark">in</span> Upload LinkedIn Data Export
+        </label>
+        <a class="btn btn-outline btn-lg" href="/auth/linkedin" id="connectBtn">
+          Connect LinkedIn (basic only)
         </a>
+      </div>
+      <div class="cta-help">
         <span class="demo-note" id="demoNote"></span>
+        <a href="#how-to-export" class="how-link">How do I get my LinkedIn data export? →</a>
       </div>
       <ul class="checks">
+        <li>✓ Real work history, education &amp; skills</li>
         <li>✓ Résumé &amp; CV from one profile</li>
         <li>✓ Multiple templates</li>
         <li>✓ One-click PDF export</li>
-        <li>✓ Your data stays in your session</li>
       </ul>
     </div>
     <div class="hero-art" aria-hidden="true">
@@ -53,16 +60,29 @@
   <section id="how" class="how">
     <h2>How it works</h2>
     <div class="steps">
-      <div class="step"><div class="num">1</div><h3>Connect LinkedIn</h3><p>Securely sign in with LinkedIn. We import your name, contact and photo.</p></div>
-      <div class="step"><div class="num">2</div><h3>Complete your profile</h3><p>Add or edit experience, education and skills in a clean editor.</p></div>
-      <div class="step"><div class="num">3</div><h3>Generate &amp; export</h3><p>Get a curated résumé and CV, choose a template, and download PDF.</p></div>
+      <div class="step"><div class="num">1</div><h3>Request your LinkedIn export</h3><p>LinkedIn emails you a ZIP with your full profile — takes ~10 minutes.</p></div>
+      <div class="step"><div class="num">2</div><h3>Upload the ZIP here</h3><p>Your real experience, education and skills are auto-filled instantly.</p></div>
+      <div class="step"><div class="num">3</div><h3>Generate &amp; export PDF</h3><p>Get a curated résumé and CV, choose a template, and download PDF.</p></div>
     </div>
+
+    <div id="how-to-export" class="export-guide">
+      <h3>Get your LinkedIn data export in 3 taps</h3>
+      <ol>
+        <li>Open <a href="https://www.linkedin.com/mypreferences/d/download-my-data" target="_blank" rel="noopener">linkedin.com/mypreferences/d/download-my-data</a> (sign in if asked).</li>
+        <li>Pick <strong>"Want something in particular?"</strong> and check <strong>Profile</strong> — or just choose <strong>"Download larger data archive"</strong>.</li>
+        <li>Tap <strong>Request archive</strong>. LinkedIn emails you a link (usually within 10 minutes; sometimes up to 24 hours).</li>
+        <li>Download the ZIP, come back here, tap <strong>Upload LinkedIn Data Export</strong>, and pick the file.</li>
+      </ol>
+      <p class="small">Your ZIP is parsed in your browser session — it's not stored on any server after the page closes.</p>
+    </div>
+
     <div class="disclaimer">
-      <strong>A note on LinkedIn data:</strong> LinkedIn's public API only shares
-      your basic profile (name, email, photo). Rich details like work history
-      and education aren't available to third-party apps, so you complete those
-      in the editor — optionally importing them from your
-      <a href="https://www.linkedin.com/mypreferences/d/download-my-data" target="_blank" rel="noopener">LinkedIn data export</a>.
+      <strong>Why not auto-scrape LinkedIn?</strong> LinkedIn's public API doesn't
+      give third-party apps access to work history, education, or skills — only
+      name, email, and photo. The Data Export is LinkedIn's own official channel
+      for you to get your full data, and it works reliably. Any site that claims
+      to "auto-import your whole LinkedIn" is either scraping (against LinkedIn's
+      ToS and breaks constantly) or has enterprise partner access.
     </div>
   </section>
 
@@ -71,14 +91,38 @@
   </footer>
 
   <script>
-    // Show demo hint and, if already signed in, jump to the editor.
     fetch('/api/status').then((r) => r.json()).then((s) => {
       if (s.authenticated) location.href = '/editor.html';
       const note = document.getElementById('demoNote');
       if (s.demoMode && !s.linkedinConfigured) {
-        note.textContent = 'Demo mode: loads a sample profile — no LinkedIn account needed.';
+        note.textContent = 'Real data via ZIP upload · "Connect LinkedIn" loads a sample profile in demo mode.';
       }
     }).catch(() => {});
+
+    // Handle LinkedIn Data Export ZIP upload
+    const importFile = document.getElementById('importFile');
+    const importCta = document.getElementById('importCta');
+    importFile.addEventListener('change', async () => {
+      const file = importFile.files?.[0];
+      if (!file) return;
+      const originalHTML = importCta.innerHTML;
+      importCta.innerHTML = '<span class="li-mark">↑</span> Uploading…';
+      importCta.style.pointerEvents = 'none';
+      try {
+        const fd = new FormData();
+        fd.append('archive', file);
+        const res = await fetch('/api/import-linkedin-export', { method: 'POST', body: fd });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Upload failed');
+        // Brief success flash, then jump to editor.
+        importCta.innerHTML = '<span class="li-mark">✓</span> Imported: ' + data.summary;
+        setTimeout(() => (location.href = '/editor.html'), 900);
+      } catch (err) {
+        importCta.innerHTML = originalHTML;
+        importCta.style.pointerEvents = '';
+        alert('Import failed: ' + err.message + '\n\nMake sure it\'s the ZIP LinkedIn emailed you (not extracted).');
+      }
+    });
   </script>
 </body>
 </html>

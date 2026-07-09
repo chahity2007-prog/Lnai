@@ -204,6 +204,45 @@ $('#logoutBtn').addEventListener('click', async () => {
   location.href = '/';
 });
 
+// Import LinkedIn Data Export ZIP from the editor (enriches current profile)
+$('#importZipFile').addEventListener('change', async (e) => {
+  const file = e.target.files?.[0];
+  if (!file) return;
+  const btn = $('#importZipBtn');
+  const original = btn.innerHTML;
+  btn.innerHTML = 'Uploading…';
+  btn.style.pointerEvents = 'none';
+  try {
+    const fd = new FormData();
+    fd.append('archive', file);
+    const res = await fetch('/api/import-linkedin-export', { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Upload failed');
+    profile = data.profile;
+    for (const k of ['experience', 'education', 'skills', 'certifications', 'languages']) {
+      if (!Array.isArray(profile[k])) profile[k] = [];
+    }
+    hydrateBasicsFromProfile();
+    renderRepeatables();
+    renderSkills();
+    renderPreview();
+    $('#saveState').textContent = 'Imported: ' + data.summary;
+    setTimeout(() => ($('#saveState').textContent = ''), 4000);
+  } catch (err) {
+    alert('Import failed: ' + err.message);
+  } finally {
+    btn.innerHTML = original;
+    btn.style.pointerEvents = '';
+    e.target.value = '';
+  }
+});
+
+function hydrateBasicsFromProfile() {
+  $$('[data-bind]').forEach((el) => {
+    el.value = profile[el.dataset.bind] ?? '';
+  });
+}
+
 // ---- Preview + save ----
 function renderPreview() {
   $('#printArea').innerHTML = renderDocument(profile, docType, template);

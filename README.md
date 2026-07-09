@@ -8,12 +8,16 @@ multiple templates, and export to PDF with one click.
 
 ## What it does
 
-1. **Connect LinkedIn** — Sign in with LinkedIn (OpenID Connect). We import your
-   name, email and profile photo.
-2. **Complete your profile** — Add/edit experience, education, skills,
-   certifications and languages in a clean side-by-side editor with a live preview.
-3. **Generate & export** — Get a curated résumé *and* CV from one profile, switch
-   templates (Classic / Modern sidebar / Minimal), and download a print-perfect PDF.
+1. **Upload your LinkedIn Data Export ZIP** — LinkedIn hands you an official ZIP
+   with your full profile (positions, education, skills, languages,
+   certifications). Upload it here and everything auto-fills instantly.
+   *Alternative:* sign in with LinkedIn OAuth to auto-fill just the basics
+   (name, email, photo) — LinkedIn's public API doesn't expose more.
+2. **Refine in the editor** — Tweak anything in a clean side-by-side editor
+   with live preview.
+3. **Generate & export** — Get a curated résumé *and* CV from one profile,
+   switch templates (Classic / Modern sidebar / Minimal), and download a
+   print-perfect PDF.
 
 ## ⚠️ Important: what LinkedIn actually lets an app read
 
