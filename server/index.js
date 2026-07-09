@@ -116,7 +116,15 @@ app.post('/api/logout', (req, res) => {
 });
 
 // --- Static files ---------------------------------------------------------
-app.use(express.static(PUBLIC_DIR));
+app.use(
+  express.static(PUBLIC_DIR, {
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith('.webmanifest')) {
+        res.setHeader('Content-Type', 'application/manifest+json');
+      }
+    },
+  })
+);
 
 app.listen(PORT, () => {
   console.log(`\n  LinkedIn Resume & CV Generator running:`);

@@ -187,6 +187,18 @@ $('#template').addEventListener('change', (e) => {
   renderPreview();
 });
 $('#downloadBtn').addEventListener('click', () => window.print());
+
+// Mobile Edit/Preview tab toggle
+$$('#mobileTabs button').forEach((b) => {
+  b.addEventListener('click', () => {
+    const mode = b.dataset.mode;
+    $$('#mobileTabs button').forEach((x) => x.classList.toggle('active', x === b));
+    const wrap = $('#editorWrap');
+    wrap.classList.toggle('mode-edit', mode === 'edit');
+    wrap.classList.toggle('mode-preview', mode === 'preview');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  });
+});
 $('#logoutBtn').addEventListener('click', async () => {
   await fetch('/api/logout', { method: 'POST' });
   location.href = '/';
