@@ -33,6 +33,38 @@ Any product that claims to "automatically scrape your full LinkedIn profile"
 is either using an unofficial/ToS-violating scraper or has special partner
 access. This app stays within LinkedIn's supported API.
 
+## Run it from your phone (no laptop needed)
+
+### Easiest: deploy to Render, get a public URL
+
+Do this in Chrome on your Android phone:
+
+1. Open <https://render.com> and sign up (Google login works).
+2. Tap **New +** → **Blueprint** → **Connect a repository** → pick this repo.
+3. Render detects `render.yaml` and shows the app **resulink**. Tap **Apply**.
+4. Wait ~2 minutes for build → you get a public URL like
+   `https://resulink-xxxx.onrender.com`.
+5. Open that URL in Chrome → tap **Connect LinkedIn** (demo mode).
+6. Optional: menu ⋮ → **Add to Home screen** to install it like an app.
+
+The free tier sleeps after ~15 min idle; first request after sleep takes ~30s
+to wake up.
+
+### Alternative: run entirely on your phone with Termux
+
+1. Install [Termux from F-Droid](https://f-droid.org/en/packages/com.termux/)
+   (the Play Store version is outdated).
+2. In Termux:
+   ```bash
+   pkg update && pkg install -y nodejs git
+   git clone https://github.com/YOUR_USER/lnai.git
+   cd lnai && git checkout claude/linkedin-resume-cv-generator-p1hc4s
+   npm install && cp .env.example .env
+   npm start
+   ```
+3. Open Chrome and go to <http://localhost:3000>. Keep Termux open to keep
+   the server running.
+
 ## Quick start (demo mode — no LinkedIn account needed)
 
 ```bash

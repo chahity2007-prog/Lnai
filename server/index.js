@@ -22,6 +22,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DEMO_MODE = String(process.env.DEMO_MODE).toLowerCase() === 'true';
 
+// Trust the first proxy hop so req.secure/req.ip work correctly when
+// deployed behind Render/Vercel/Fly-style load balancers.
+app.set('trust proxy', 1);
+
 app.use(express.json({ limit: '2mb' }));
 app.use(cookieParser());
 app.use(
