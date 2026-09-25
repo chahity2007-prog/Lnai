@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PostPilot — LinkedIn Post Automation</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">P</div>
+        <div class="logo-text">Post<span>Pilot</span></div>
+      </a>
+      <span class="header-badge">LinkedIn Automation</span>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Navigation -->
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-tab="trends">🔥 Trending</button>
+      <button class="nav-tab" data-tab="post-types">📊 Post Types</button>
+      <button class="nav-tab" data-tab="create">✍️ Create Post</button>
+      <button class="nav-tab" data-tab="results">📋 My Draft</button>
+    </nav>
+
+    <!-- Section 1: Trending Topics -->
+    <section id="trends" class="section active">
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">🔥 What's Trending on LinkedIn</div>
+        <div class="card-subtitle">Topics getting the most engagement right now. Click "Use this" to jump into post creation.</div>
+      </div>
+      <div id="trend-grid" class="trend-grid">
+        <div class="loading"><div class="spinner"></div>Loading trends...</div>
+      </div>
+    </section>
+
+    <!-- Section 2: Post Type Analytics -->
+    <section id="post-types" class="section">
+      <div class="card" style="margin-bottom: 20px;">
+        <div class="card-title">📊 Post Type Performance</div>
+        <div class="card-subtitle">See which LinkedIn post formats are getting the best results — so you can pick the right one.</div>
+      </div>
+      <div id="type-grid" class="type-grid">
+        <div class="loading"><div class="spinner"></div>Loading analytics...</div>
+      </div>
+    </section>
+
+    <!-- Section 3: Create Post (Questionnaire) -->
+    <section id="create" class="section">
+      <div class="questionnaire">
+        <div class="q-progress" id="q-progress"></div>
+
+        <!-- Step 1: Goal -->
+        <div class="q-step active" data-step="0">
+          <div class="card">
+            <div class="q-question">What's your goal with this post?</div>
+            <div class="q-hint">This helps us recommend the right format and strategy.</div>
+            <div class="q-options" data-field="goal">
+              <div class="q-option" data-value="engagement">
+                <div class="q-option-icon">💬</div>
+                <div>
+                  <div class="q-option-text">Maximize Engagement</div>
+                  <div class="q-option-desc">Get likes, comments, and shares</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="reach">
+                <div class="q-option-icon">📡</div>
+                <div>
+                  <div class="q-option-text">Maximize Reach</div>
+                  <div class="q-option-desc">Get seen by as many people as possible</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="authority">
+                <div class="q-option-icon">🏆</div>
+                <div>
+                  <div class="q-option-text">Build Authority</div>
+                  <div class="q-option-desc">Establish thought leadership in your space</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="leads">
+                <div class="q-option-icon">🎯</div>
+                <div>
+                  <div class="q-option-text">Generate Leads</div>
+                  <div class="q-option-desc">Drive profile visits, DMs, and conversions</div>
+                </div>
+              </div>
+            </div>
+            <div class="q-actions">
+              <div></div>
+              <button class="btn btn-primary q-next" disabled>Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Audience -->
+        <div class="q-step" data-step="1">
+          <div class="card">
+            <div class="q-question">Who is your target audience?</div>
+            <div class="q-hint">Select the group you most want to reach.</div>
+            <div class="q-options" data-field="audience">
+              <div class="q-option" data-value="founders">
+                <div class="q-option-icon">🚀</div>
+                <div>
+                  <div class="q-option-text">Founders & Entrepreneurs</div>
+                  <div class="q-option-desc">Startup founders, solopreneurs, indie hackers</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="professionals">
+                <div class="q-option-icon">💼</div>
+                <div>
+                  <div class="q-option-text">Working Professionals</div>
+                  <div class="q-option-desc">Managers, ICs, career growers</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="recruiters">
+                <div class="q-option-icon">🔍</div>
+                <div>
+                  <div class="q-option-text">Recruiters & HR</div>
+                  <div class="q-option-desc">Talent acquisition, people ops</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="tech">
+                <div class="q-option-icon">💻</div>
+                <div>
+                  <div class="q-option-text">Tech / Developer Community</div>
+                  <div class="q-option-desc">Engineers, product managers, designers</div>
+                </div>
+              </div>
+            </div>
+            <div class="q-actions">
+              <button class="btn btn-secondary q-prev">← Back</button>
+              <button class="btn btn-primary q-next" disabled>Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Tone -->
+        <div class="q-step" data-step="2">
+          <div class="card">
+            <div class="q-question">What tone do you want?</div>
+            <div class="q-hint">This shapes the writing style of your post.</div>
+            <div class="q-options" data-field="tone">
+              <div class="q-option" data-value="professional">
+                <div class="q-option-icon">🎩</div>
+                <div>
+                  <div class="q-option-text">Professional</div>
+                  <div class="q-option-desc">Polished, data-driven, authoritative</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="conversational">
+                <div class="q-option-icon">☕</div>
+                <div>
+                  <div class="q-option-text">Conversational</div>
+                  <div class="q-option-desc">Friendly, relatable, casual</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="inspirational">
+                <div class="q-option-icon">✨</div>
+                <div>
+                  <div class="q-option-text">Inspirational</div>
+                  <div class="q-option-desc">Motivating, uplifting, story-driven</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="provocative">
+                <div class="q-option-icon">🔥</div>
+                <div>
+                  <div class="q-option-text">Provocative</div>
+                  <div class="q-option-desc">Bold, contrarian, debate-starting</div>
+                </div>
+              </div>
+            </div>
+            <div class="q-actions">
+              <button class="btn btn-secondary q-prev">← Back</button>
+              <button class="btn btn-primary q-next" disabled>Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Topic -->
+        <div class="q-step" data-step="3">
+          <div class="card">
+            <div class="q-question">What's the topic of your post?</div>
+            <div class="q-hint">Type a topic, keyword, or industry. We'll match it to what's trending.</div>
+            <input type="text" class="q-input" id="q-topic" placeholder="e.g., AI in hiring, leadership, remote work, sales..." data-field="topic">
+            <div id="topic-suggestions" style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;"></div>
+            <div class="q-actions">
+              <button class="btn btn-secondary q-prev">← Back</button>
+              <button class="btn btn-primary q-next" id="topic-next">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Key Points -->
+        <div class="q-step" data-step="4">
+          <div class="card">
+            <div class="q-question">What are the key points you want to share?</div>
+            <div class="q-hint">Write each point on a new line. These become the core of your post.</div>
+            <textarea class="q-input" id="q-keypoints" placeholder="e.g.,&#10;AI is changing how we hire&#10;80% of recruiters now use AI tools&#10;But human judgment still matters most&#10;Here's my framework for balancing both" data-field="keyPoints"></textarea>
+            <div class="q-actions">
+              <button class="btn btn-secondary q-prev">← Back</button>
+              <button class="btn btn-primary q-next" id="points-next">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 6: CTA -->
+        <div class="q-step" data-step="5">
+          <div class="card">
+            <div class="q-question">What's your call to action?</div>
+            <div class="q-hint">What do you want readers to do after reading?</div>
+            <div class="q-options" data-field="cta">
+              <div class="q-option" data-value="What do you think? Share your take below 👇">
+                <div class="q-option-icon">💬</div>
+                <div>
+                  <div class="q-option-text">Ask for opinions</div>
+                  <div class="q-option-desc">"What do you think? Share your take below 👇"</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="Follow me for more insights like this 🔔">
+                <div class="q-option-icon">🔔</div>
+                <div>
+                  <div class="q-option-text">Follow me</div>
+                  <div class="q-option-desc">"Follow me for more insights like this 🔔"</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="♻️ Repost this if it resonated — let's spread the word">
+                <div class="q-option-icon">♻️</div>
+                <div>
+                  <div class="q-option-text">Ask for repost</div>
+                  <div class="q-option-desc">"Repost this if it resonated — let's spread the word"</div>
+                </div>
+              </div>
+              <div class="q-option" data-value="DM me 'GUIDE' and I'll send you the full playbook 📩">
+                <div class="q-option-icon">📩</div>
+                <div>
+                  <div class="q-option-text">Drive DMs / leads</div>
+                  <div class="q-option-desc">"DM me 'GUIDE' and I'll send you the full playbook 📩"</div>
+                </div>
+              </div>
+            </div>
+            <div class="q-actions">
+              <button class="btn btn-secondary q-prev">← Back</button>
+              <button class="btn btn-primary q-next" id="generate-btn">Generate My Post 🚀</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 4: Results / Draft -->
+    <section id="results" class="section">
+      <div id="results-content">
+        <div class="empty-state">
+          <div class="empty-state-icon">✍️</div>
+          <h3>No draft yet</h3>
+          <p>Go to the "Create Post" tab and answer a few questions — we'll generate a trending, optimized LinkedIn post for you.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>

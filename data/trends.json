@@ -1,0 +1,169 @@
+{
+  "lastUpdated": "2026-09-25",
+  "trendingTopics": [
+    {
+      "topic": "AI & Automation in the Workplace",
+      "heat": 98,
+      "growth": "+42%",
+      "bestPostType": "carousel",
+      "peakDays": ["Tuesday", "Wednesday"],
+      "hashtags": ["#AI", "#Automation", "#FutureOfWork", "#ArtificialIntelligence", "#GenAI"],
+      "description": "Posts about AI tools, automation workflows, and how teams are adapting to AI are dominating feeds."
+    },
+    {
+      "topic": "Personal Branding & Thought Leadership",
+      "heat": 94,
+      "growth": "+35%",
+      "bestPostType": "text-story",
+      "peakDays": ["Monday", "Thursday"],
+      "hashtags": ["#PersonalBranding", "#ThoughtLeadership", "#LinkedInCreator", "#CareerGrowth"],
+      "description": "Authentic stories about career journeys, lessons learned, and contrarian takes are getting massive engagement."
+    },
+    {
+      "topic": "Remote Work & Hybrid Culture",
+      "heat": 87,
+      "growth": "+18%",
+      "bestPostType": "poll",
+      "peakDays": ["Monday", "Wednesday"],
+      "hashtags": ["#RemoteWork", "#HybridWork", "#WorkFromHome", "#WorkLifeBalance"],
+      "description": "Debates about RTO mandates vs remote flexibility continue to drive high comment counts."
+    },
+    {
+      "topic": "Startup & Founder Stories",
+      "heat": 85,
+      "growth": "+28%",
+      "bestPostType": "text-story",
+      "peakDays": ["Tuesday", "Thursday"],
+      "hashtags": ["#Startup", "#Entrepreneurship", "#FounderLife", "#BuildInPublic"],
+      "description": "Raw, honest founder stories — failures, pivots, funding struggles — resonate deeply."
+    },
+    {
+      "topic": "Career Transitions & Layoffs",
+      "heat": 82,
+      "growth": "+22%",
+      "bestPostType": "text-story",
+      "peakDays": ["Monday", "Wednesday"],
+      "hashtags": ["#OpenToWork", "#CareerChange", "#JobSearch", "#Hiring"],
+      "description": "Posts about navigating layoffs, career pivots, and hiring transparency get strong community support."
+    },
+    {
+      "topic": "Leadership & Management",
+      "heat": 80,
+      "growth": "+15%",
+      "bestPostType": "carousel",
+      "peakDays": ["Tuesday", "Thursday"],
+      "hashtags": ["#Leadership", "#Management", "#TeamBuilding", "#Culture"],
+      "description": "Actionable leadership advice, especially around empathy, feedback, and team culture."
+    },
+    {
+      "topic": "Data & Analytics",
+      "heat": 76,
+      "growth": "+20%",
+      "bestPostType": "document",
+      "peakDays": ["Wednesday", "Thursday"],
+      "hashtags": ["#DataScience", "#Analytics", "#BigData", "#DataDriven"],
+      "description": "Data-backed insights, dashboards, and case studies showing ROI are highly shared."
+    },
+    {
+      "topic": "Sustainability & Green Business",
+      "heat": 72,
+      "growth": "+30%",
+      "bestPostType": "carousel",
+      "peakDays": ["Monday", "Friday"],
+      "hashtags": ["#Sustainability", "#GreenBusiness", "#ESG", "#ClimateAction"],
+      "description": "Companies sharing real sustainability initiatives (not greenwashing) are gaining traction."
+    },
+    {
+      "topic": "Sales & Revenue Growth",
+      "heat": 70,
+      "growth": "+12%",
+      "bestPostType": "text-tips",
+      "peakDays": ["Tuesday", "Wednesday"],
+      "hashtags": ["#Sales", "#B2B", "#RevenueGrowth", "#SalesStrategy"],
+      "description": "Tactical sales advice, cold outreach templates, and closing frameworks perform well."
+    },
+    {
+      "topic": "Diversity, Equity & Inclusion",
+      "heat": 68,
+      "growth": "+10%",
+      "bestPostType": "text-story",
+      "peakDays": ["Monday", "Friday"],
+      "hashtags": ["#DEI", "#Diversity", "#Inclusion", "#Belonging"],
+      "description": "Personal stories about inclusion and workplace belonging get authentic engagement."
+    }
+  ],
+  "postTypePerformance": {
+    "carousel": {
+      "avgEngagement": 3.2,
+      "avgReach": 4500,
+      "trend": "rising",
+      "bestFor": "Educational content, step-by-step guides, listicles",
+      "tips": "Use 6-10 slides, strong hook on slide 1, CTA on last slide"
+    },
+    "text-story": {
+      "avgEngagement": 2.8,
+      "avgReach": 3800,
+      "trend": "stable-high",
+      "bestFor": "Personal stories, career lessons, hot takes",
+      "tips": "Start with a bold first line, use line breaks, keep under 1300 chars"
+    },
+    "poll": {
+      "avgEngagement": 4.1,
+      "avgReach": 5200,
+      "trend": "rising",
+      "bestFor": "Industry debates, opinion gathering, engagement bait",
+      "tips": "Keep options to 3-4, add context in the post body"
+    },
+    "video": {
+      "avgEngagement": 2.5,
+      "avgReach": 3200,
+      "trend": "stable",
+      "bestFor": "Tutorials, behind-the-scenes, product demos",
+      "tips": "Add captions, keep under 90 seconds, vertical format preferred"
+    },
+    "document": {
+      "avgEngagement": 3.5,
+      "avgReach": 4100,
+      "trend": "rising",
+      "bestFor": "Frameworks, reports, detailed guides",
+      "tips": "PDF format, branded slides, include key takeaway on page 1"
+    },
+    "image": {
+      "avgEngagement": 1.9,
+      "avgReach": 2800,
+      "trend": "declining",
+      "bestFor": "Infographics, event photos, team celebrations",
+      "tips": "Use clean design, add alt text, pair with strong caption"
+    },
+    "text-tips": {
+      "avgEngagement": 2.4,
+      "avgReach": 3500,
+      "trend": "stable",
+      "bestFor": "Quick tips, frameworks, bullet-point advice",
+      "tips": "Use numbered lists, emoji bullets, end with a question"
+    },
+    "article": {
+      "avgEngagement": 1.2,
+      "avgReach": 1800,
+      "trend": "declining",
+      "bestFor": "Deep dives, SEO content, long-form thought pieces",
+      "tips": "Native articles get less feed visibility; consider carousel instead"
+    }
+  },
+  "bestPostingTimes": {
+    "Monday": { "best": "8:00 AM", "good": ["7:00 AM", "12:00 PM", "5:00 PM"] },
+    "Tuesday": { "best": "10:00 AM", "good": ["8:00 AM", "12:00 PM", "6:00 PM"] },
+    "Wednesday": { "best": "9:00 AM", "good": ["8:00 AM", "12:00 PM", "5:30 PM"] },
+    "Thursday": { "best": "10:00 AM", "good": ["8:00 AM", "1:00 PM", "5:00 PM"] },
+    "Friday": { "best": "9:00 AM", "good": ["8:00 AM", "11:00 AM"] },
+    "Saturday": { "best": "10:00 AM", "good": ["9:00 AM"] },
+    "Sunday": { "best": "10:00 AM", "good": ["9:00 AM"] }
+  },
+  "engagementFormulas": [
+    "Hook → Story → Lesson → CTA",
+    "Controversial take → Explanation → Nuance → Question",
+    "Before/After → What changed → How → Apply this",
+    "Myth → Reality → Proof → Action step",
+    "Number stat → Why it matters → What to do → Share this"
+  ]
+}
